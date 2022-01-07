@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     protocol: TCP
@@ -13,12 +13,15 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: my-nginx
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
   template:
     metadata:
       labels:
@@ -30,8 +33,7 @@ spec:
           name: nginxconfigmap
       containers:
       - name: nginxhttps
-        image: cjh829.azurecr.io/aks-nginx-test:v1
-        command: ["/home/auto-reload-nginx.sh"]
+        image: cjh829.azurecr.io/aks-nginx-test:v2
         ports:
         - containerPort: 80
         livenessProbe:
@@ -41,7 +43,5 @@ spec:
           initialDelaySeconds: 30
           timeoutSeconds: 1
         volumeMounts:
-        - mountPath: /etc/nginx/ssl
-          name: secret-volume
         - mountPath: /etc/nginx/conf.d
           name: configmap-volume

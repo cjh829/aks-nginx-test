@@ -25,15 +25,12 @@ spec:
         app: nginx
     spec:
       volumes:
-      - name: secret-volume
-        secret:
-          secretName: nginxsecret
       - name: configmap-volume
         configMap:
           name: nginxconfigmap
       containers:
       - name: nginxhttps
-        image: ymqytw/nginxhttps:1.5
+        image: cjh829.azurecr.io/aks-nginx-test:v1
         command: ["/home/auto-reload-nginx.sh"]
         ports:
         - containerPort: 80

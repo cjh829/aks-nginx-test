@@ -10,9 +10,6 @@ spec:
   - port: 80
     protocol: TCP
     name: http
-  - port: 443
-    protocol: TCP
-    name: https
   selector:
     app: nginx
 ---
@@ -39,7 +36,6 @@ spec:
         image: ymqytw/nginxhttps:1.5
         command: ["/home/auto-reload-nginx.sh"]
         ports:
-        - containerPort: 443
         - containerPort: 80
         livenessProbe:
           httpGet:

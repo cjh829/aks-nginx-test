@@ -33,7 +33,7 @@ spec:
           name: nginxconfigmap
       containers:
       - name: nginxhttps
-        image: cjh829.azurecr.io/aks-nginx-test:v2
+        image: cjh829.azurecr.io/aks-nginx-test:v220111-01
         ports:
         - containerPort: 80
         livenessProbe:

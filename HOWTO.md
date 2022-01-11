@@ -50,7 +50,11 @@ docker login cjh829.azurecr.io
 ```sh
 kubectl apply -f nginx-app.yaml
 ```
-######(這個kubectl好像也有權限，但是怎麼處理我忘了，下次遇到再補)
+##### 這個kubectl也有權限
+
+```sh
+az aks get-credentials --resource-group myRG --name myk8s
+```
 
 ### 發布之後會自動重起，如果要手動重起，用調整節點數的方式，去強制啟動(切成0再切回來)
 ```sh

@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'fc306222-5b4a-4fb5-8517-9660f4c11218'
-  imageRepository: 'aks-nginx-test'
+  AzureCR: 'myacr'
   containerRegistry: 'cjh829.azurecr.io'
+  imageRepository: 'aks-nginx-test'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.SourceVersion)'
 
@@ -34,6 +34,6 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(AzureCR)
         tags: |
           $(tag)

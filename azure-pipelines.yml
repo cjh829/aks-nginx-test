@@ -1,7 +1,3 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - master
 
@@ -37,3 +33,8 @@ stages:
         containerRegistry: $(AzureCR)
         tags: |
           $(tag)
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)/s/k8s.yaml'
+        artifact: 'manifests'
+        publishLocation: 'pipeline'

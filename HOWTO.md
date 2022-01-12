@@ -45,10 +45,10 @@ docker login cjh829.azurecr.io
 ```
 然後去後台 **容器登錄 => 存取金鑰 => 管理使用者** 打勾，再把產生的帳號密碼打上去就可以
 
-### image上傳到CR後，修改 nginx-app.yaml，改成新的 image 版本，然後發布
+### image上傳到CR後，修改 k8s.yaml，改成新的 image 版本，然後發布
 
 ```sh
-kubectl apply -f nginx-app.yaml
+kubectl apply -f k8s.yaml
 ```
 ##### 這個kubectl也有權限
 

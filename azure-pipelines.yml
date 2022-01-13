@@ -42,7 +42,7 @@ stages:
               action: deploy
               #todo yaml分環境
               manifests: |
-                k8s.yaml
+                'k8s-$(branch).yaml'
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |

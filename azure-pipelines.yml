@@ -22,11 +22,12 @@ stages:
     displayName: Deploy
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'envk8s'
+    environment: $(branch)
     strategy:
       runOnce:
         deploy:
           steps:
+          - checkout: self
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:

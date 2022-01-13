@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: nginxhttps
-        image: cjh829.azurecr.io/aks-nginx-test:v220111-01
+        image: cjh829.azurecr.io/aks-nginx-test
         ports:
         - containerPort: 80
         livenessProbe:

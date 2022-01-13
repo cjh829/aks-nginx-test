@@ -25,7 +25,7 @@ steps:
 - checkout: htmlsrc
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'aks-nginx-html'
+    SourceFolder: 'aks-html-test'
     Contents: '**'
     TargetFolder: 'aks-nginx-test/nginx/html'
     CleanTargetFolder: true

@@ -4,7 +4,7 @@ trigger:
 resources:
   pipelines:
     - pipeline: htmltrigger
-      source: 'aks-html-test' #因為不支持在下面的github repository直接配置trigger，所以要用另外一個pipeline去觸發
+      source: 'cjh829.aks-html-test' #因為不支持在下面的github repository直接配置trigger，所以要用另外一個pipeline去觸發
       trigger:
         branches: 
         - master

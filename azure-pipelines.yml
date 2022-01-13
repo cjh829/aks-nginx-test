@@ -41,6 +41,6 @@ steps:
       $(tag)
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: 'aks-nginx-test/k8s.yml'
+    targetPath: 'aks-nginx-test/k8s.yaml'
     artifact: 'manifests'
     publishLocation: 'pipeline'

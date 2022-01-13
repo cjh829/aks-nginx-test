@@ -26,7 +26,9 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: 'aks-html-test'
-    Contents: '**'
+    Contents: |
+      **/*
+      !.git/**/*
     TargetFolder: 'aks-nginx-test/nginx/html'
     CleanTargetFolder: true
 

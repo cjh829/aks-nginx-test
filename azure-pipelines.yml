@@ -22,7 +22,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'envcjh829k8s.default'
+    environment: 'envcjh829k8s'
     strategy:
       runOnce:
         deploy:
@@ -31,6 +31,7 @@ stages:
             displayName: Create imagePullSecret
             inputs:
               action: createSecret
+              namespace: 'default'
               secretType: 'dockerRegistry'
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: 'myacr'
@@ -39,6 +40,7 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
+              namespace: 'default'
               manifests: |
                 'k8s-$(branch).yaml'
               imagePullSecrets: |

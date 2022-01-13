@@ -22,7 +22,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'envcjh829k8s.default'
+    environment: 'envcjh829k8s'
     strategy:
       runOnce:
         deploy:

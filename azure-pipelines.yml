@@ -1,8 +1,17 @@
 trigger:
-- master
+- none
 
 resources:
-- repo: self
+  repositories:
+  - repository: htmlsrc # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: cjh829
+    name: cjh829/aks-html-test
+    ref: master
+    trigger:
+      branches:
+        include:
+        - master
 
 variables:
   # Container registry service connection established during pipeline creation
@@ -24,6 +33,8 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+    - checkout: self
+    - checkout: htmlsrc
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
@@ -35,6 +46,6 @@ stages:
           $(tag)
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)/s/k8s.yaml'
+        targetPath: '$(Pipeline.Workspace)'
         artifact: 'manifests'
         publishLocation: 'pipeline'

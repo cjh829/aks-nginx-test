@@ -12,7 +12,7 @@ variables:
 
   containerRegistry: 'cjh829.azurecr.io'
   imageRepository: 'aks-nginx-test'
-  imagePullSecret: 'cjh829'
+  imagePullSecret: 'aksnginxtestk8ssecret'
 
 stages:
 - stage: Deploy

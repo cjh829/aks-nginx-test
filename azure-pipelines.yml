@@ -16,38 +16,31 @@ resources:
     ref: master
 
 variables:
-  # Container registry service connection established during pipeline creation
-  AzureCR: 'myacr'
-  containerRegistry: 'cjh829.azurecr.io'
-  imageRepository: 'aks-nginx-test'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.SourceVersion)'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+pool:
+  vmImage: 'ubuntu-latest'
+steps:
+- checkout: self
+- checkout: htmlsrc
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'aks-nginx-html'
+    Contents: '**'
+    TargetFolder: 'aks-nginx-test/nginx/html'
+    CleanTargetFolder: true
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - checkout: self
-    - checkout: htmlsrc
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(AzureCR)
-        tags: |
-          $(tag)
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(Pipeline.Workspace)/s'
-        artifact: 'manifests'
-        publishLocation: 'pipeline'
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    containerRegistry: 'myacr'
+    repository: 'aks-nginx-test'
+    dockerfile: 'aks-nginx-test/Dockerfile'
+    tags: |
+      $(tag)
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: 'aks-nginx-test/k8s.yml'
+    artifact: 'manifests'
+    publishLocation: 'pipeline'

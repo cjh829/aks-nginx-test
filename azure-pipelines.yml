@@ -1,0 +1,50 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- none
+
+resources:
+- repo: self
+
+variables:
+
+  containerRegistry: 'cjh829.azurecr.io'
+  imageRepository: 'aks-nginx-test'
+  imagePullSecret: 'cjh829-image-auth'
+
+stages:
+- stage: Deploy
+  displayName: Deploy stage
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'env_cjh829k8s'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              namespace: 'default'
+              secretType: 'dockerRegistry'
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: 'myacr'
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              #todo yaml分環境
+              manifests: |
+                k8s.yaml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(branch).$(commitHash)
+

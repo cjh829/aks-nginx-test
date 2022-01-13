@@ -8,10 +8,6 @@ resources:
     endpoint: cjh829
     name: cjh829/aks-html-test
     ref: master
-    trigger:
-      branches:
-        include:
-        - master
 
 variables:
   # Container registry service connection established during pipeline creation

@@ -12,7 +12,7 @@ variables:
 
   containerRegistry: 'cjh829.azurecr.io'
   imageRepository: 'aks-nginx-test'
-  imagePullSecret: 'cjh829-image-auth'
+  imagePullSecret: 'cjh829imageauth'
 
 stages:
 - stage: Deploy
@@ -22,7 +22,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'envcjh829k8s'
+    environment: 'envcjh829k8s.default'
     strategy:
       runOnce:
         deploy:
@@ -40,6 +40,7 @@ stages:
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
+              namespace: 'default'
               #todo yaml分環境
               manifests: |
                 'k8s-$(branch).yaml'

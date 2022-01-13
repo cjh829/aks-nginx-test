@@ -44,7 +44,7 @@ stages:
               kubernetesServiceConnection: 'myk8s'
               namespace: 'default'
               manifests: |
-                'k8s-$(branch).yaml'
+                k8s-$(branch).yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |

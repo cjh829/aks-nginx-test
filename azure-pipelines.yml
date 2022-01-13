@@ -22,7 +22,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'envcjh829k8s.default'
+    environment: 'envcjh829k8s'
     strategy:
       runOnce:
         deploy:
@@ -41,7 +41,6 @@ stages:
             inputs:
               action: deploy
               namespace: 'default'
-              #todo yaml分環境
               manifests: |
                 'k8s-$(branch).yaml'
               imagePullSecrets: |

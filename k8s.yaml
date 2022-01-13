@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginxsvc
+  name: nginx-service-master
   labels:
     app: nginx
+    env: master
 spec:
   type: LoadBalancer
   ports:
@@ -12,23 +13,26 @@ spec:
     name: http
   selector:
     app: nginx
+    env: master
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  name: nginx-deploy-master
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nginx
+      env: master
   template:
     metadata:
       labels:
         app: nginx
+        env: master
     spec:
       containers:
-      - name: nginxhttps
+      - name: nginx-container-master
         image: cjh829.azurecr.io/aks-nginx-test
         ports:
         - containerPort: 80

@@ -14,40 +14,31 @@ variables:
   imageRepository: 'aks-nginx-test'
   imagePullSecret: 'aksnginxtestk8ssecret'
 
-stages:
-- stage: Deploy
-  displayName: Deploy stage
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    pool:
-      vmImage: 'ubuntu-latest'
-    environment: $(branch)
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - checkout: self
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              kubernetesServiceConnection: 'myk8s'
-              namespace: 'default'
-              secretType: 'dockerRegistry'
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: 'myacr'
+pool:
+  vmImage: 'ubuntu-latest'
+  environment: $(branch)
 
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
-            inputs:
-              action: deploy
-              kubernetesServiceConnection: 'myk8s'
-              namespace: 'default'
-              manifests: |
-                k8s-$(branch).yaml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(branch).$(commitHash)
+steps:
+- checkout: self
+- task: KubernetesManifest@0
+  displayName: Create imagePullSecret
+  inputs:
+    action: createSecret
+    kubernetesServiceConnection: 'myk8s'
+    namespace: 'default'
+    secretType: 'dockerRegistry'
+    secretName: $(imagePullSecret)
+    dockerRegistryEndpoint: 'myacr'
 
+- task: KubernetesManifest@0
+  displayName: Deploy to Kubernetes cluster
+  inputs:
+    action: deploy
+    kubernetesServiceConnection: 'myk8s'
+    namespace: 'default'
+    manifests: |
+      k8s-$(branch).yaml
+    imagePullSecrets: |
+      $(imagePullSecret)
+    containers: |
+      $(containerRegistry)/$(imageRepository):$(branch).$(commitHash)

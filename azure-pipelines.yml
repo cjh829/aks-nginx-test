@@ -37,7 +37,7 @@ steps:
     kubernetesServiceConnection: 'myk8s'
     namespace: 'default'
     manifests: |
-      k8s-$(branch).yaml
+      k8s-master.yaml
     imagePullSecrets: |
       $(imagePullSecret)
     containers: |

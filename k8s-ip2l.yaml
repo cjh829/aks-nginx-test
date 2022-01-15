@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-ip2l
+  labels:
+    app: nginx
+    env: test
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: nginx
+    env: test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy-ip2l
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      env: test
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: test
+    spec:
+      containers:
+        - name: nginx-container-ip2l
+          image: cjh829.azurecr.io/aks-nginx-ip2l
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 30
+            timeoutSeconds: 1

@@ -27,17 +27,9 @@ RUN nginx -V 2> $$ \
     && eval ./configure $nginx_configure_arguments \
     && make
 
-#extra step: copy and unzip ip2location db
-RUN mkdir /IP2L
-COPY IP2LOCATION-LITE-DB11.IPV6.BIN.ZIP /IP2L/DB11.ZIP
-RUN cd /IP2L \
-    && unzip DB11.ZIP && rm DB11.ZIP \
-    && mv IP2LOCATION-LITE-DB11.IPV6.BIN /DB11.BIN
-
-
 FROM nginx:1.20.2
 ENV LD_LIBRARY_PATH /usr/local/lib
 COPY --from=builder /usr/local/lib /usr/local/lib
 COPY --from=builder /nginx-dev/nginx-1.20.2/objs/nginx /usr/sbin/nginx
 RUN mkdir /etc/ip2location
-COPY --from=builder /DB11.BIN /etc/ip2location/DB11.BIN
+COPY DB1.BIN /etc/ip2location/DB1.BIN

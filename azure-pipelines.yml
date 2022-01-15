@@ -9,9 +9,6 @@ resources:
 - repo: self
 
 variables:
-
-  containerRegistry: 'cjh829.azurecr.io'
-  imageRepository: 'aks-nginx-test'
   imagePullSecret: 'aksnginxtestk8ssecret'
 
 pool:
@@ -40,5 +37,6 @@ steps:
       k8s-master.yaml
     imagePullSecrets: |
       $(imagePullSecret)
+    #note the containers should be full url(cjh829.azurecr.io), can not replace to 'myacr' which will not replace the image source in k8s.yaml
     containers: |
-      $(containerRegistry)/$(imageRepository):$(branch).$(commitHash).$(buildNumber)
+      cjh829.azurecr.io/aks-nginx-test:$(branch).$(commitHash).$(buildNumber)

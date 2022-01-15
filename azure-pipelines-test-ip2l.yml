@@ -1,0 +1,54 @@
+trigger:
+- none
+
+resources:
+- repo: self
+
+variables:
+  branch: '$(Build.SourceBranchName)'
+  buildnumber: '$(Build.BuildNumber)'
+  containerRegistry: 'myacr'
+  imageRepository: 'aks-nginx-ip2l'
+  imagePullSecret: 'aksnginxip2lk8ssecret'
+
+stages:
+- stage: PackAndPush
+  displayName: Pack website to docker image and push to ACR
+  jobs:
+  - job: PackAndPush
+    displayName: Pack website to docker image and push to ACR
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        containerRegistry: 'myacr'
+        repository: 'aks-nginx-ip2l'
+        dockerfile: 'Dockerfile'
+        tags: |
+          $(branch).$(buildnumber)
+    - task: KubernetesManifest@0
+      displayName: Create imagePullSecret
+      inputs:
+        action: createSecret
+        kubernetesServiceConnection: 'myk8s'
+        namespace: 'default'
+        secretType: 'dockerRegistry'
+        secretName: $(imagePullSecret)
+        dockerRegistryEndpoint: $(containerRegistry)
+
+    - task: KubernetesManifest@0
+      displayName: Deploy to Kubernetes cluster
+      inputs:
+        action: deploy
+        kubernetesServiceConnection: 'myk8s'
+        namespace: 'default'
+        manifests: |
+          k8s-ip2l.yaml
+        imagePullSecrets: |
+          $(imagePullSecret)
+        containers: |
+          $(containerRegistry)/$(imageRepository):$(branch).$(buildNumber)

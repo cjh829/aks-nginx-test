@@ -51,4 +51,4 @@ stages:
         imagePullSecrets: |
           $(imagePullSecret)
         containers: |
-          $(containerRegistry)/$(imageRepository):$(branch).$(buildNumber)
+          $(containerRegistry)/$(imageRepository):master.20220115.4

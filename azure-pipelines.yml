@@ -41,4 +41,4 @@ steps:
     imagePullSecrets: |
       $(imagePullSecret)
     containers: |
-      $(containerRegistry)/$(imageRepository):$(branch).$(commitHash)
+      $(containerRegistry)/$(imageRepository):$(branch).$(commitHash).$(buildNumber)

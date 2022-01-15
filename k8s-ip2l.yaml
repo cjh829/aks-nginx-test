@@ -7,7 +7,7 @@ metadata:
     env: test
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Local #get client's real ip
   ports:
     - port: 80
       protocol: TCP

@@ -7,6 +7,7 @@ metadata:
     env: instance-01
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local #get client's real ip
   ports:
   - port: 80
     protocol: TCP

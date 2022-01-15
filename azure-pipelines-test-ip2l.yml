@@ -38,7 +38,7 @@ stages:
         namespace: 'default'
         secretType: 'dockerRegistry'
         secretName: $(imagePullSecret)
-        dockerRegistryEndpoint: $(containerRegistry)
+        dockerRegistryEndpoint: 'myacr'
 
     - task: KubernetesManifest@0
       displayName: Deploy to Kubernetes cluster

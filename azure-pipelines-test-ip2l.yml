@@ -7,7 +7,6 @@ resources:
 variables:
   branch: '$(Build.SourceBranchName)'
   buildNumber: '$(Build.BuildNumber)'
-  containerRegistry: 'myacr'
   imageRepository: 'aks-nginx-ip2l'
   imagePullSecret: 'aksnginxip2lk8ssecret'
 
@@ -26,7 +25,7 @@ stages:
       inputs:
         command: buildAndPush
         containerRegistry: 'myacr'
-        repository: 'aks-nginx-ip2l'
+        repository: $(imageRepository)
         dockerfile: 'Dockerfile'
         tags: |
           $(branch).$(buildNumber)
@@ -50,5 +49,6 @@ stages:
           k8s-ip2l.yaml
         imagePullSecrets: |
           $(imagePullSecret)
+        #note the containers should be full url(cjh829.azurecr.io), can not replace to 'myacr' which will not replace the image source in k8s-ip2l.yaml
         containers: |
-          $(containerRegistry)/$(imageRepository):master.20220115.4
+          cjh829.azurecr.io/$(imageRepository):$(branch).$(buildNumber)

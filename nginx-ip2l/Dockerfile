@@ -15,8 +15,6 @@ RUN mkdir /nginx-dev && \
     && make \
     && make install \
     && ldconfig \
-    && cd data \
-    && perl ip-country.pl \
     && cd /nginx-dev \
     && wget https://github.com/ip2location/ip2location-nginx/archive/master.zip \
     && unzip master.zip && rm master.zip \

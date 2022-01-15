@@ -1,13 +1,12 @@
-# 先build docker image
-
-```sh
-docker build -t cjh829.azurecr.io/aks-nginx-test:v22010901 .  //<==記得最後有個點，版本號記得改
-```
-
 # 本地測試
 
+### 先build docker image
 
-### 修改 docker-compose.yml 改成剛才build的版本，然後起服務
+```sh
+docker build -t aks-nginx-test:test .  //<==記得最後有個點
+```
+
+### 起本地docker-compose服務
 ```sh
 docker-compose up -d
 ```
@@ -17,8 +16,13 @@ docker-compose down
 docker-compose up -d
 ```
 
-
 # 雲端測試
+
+### 先build docker image
+
+```sh
+docker build -t cjh829.azurecr.io/aks-nginx-test:v22010901 .  //<==記得最後有個點，版本號記得改
+```
 
 ### 把 docker image 上傳到 azure 的 CR 庫 (container registry)
 

@@ -15,6 +15,8 @@ RUN mkdir /nginx-dev && \
     && make \
     && make install \
     && ldconfig \
+    && cd data \
+    && perl ip-country.pl \
     && cd /nginx-dev \
     && wget https://github.com/ip2location/ip2location-nginx/archive/master.zip \
     && unzip master.zip && rm master.zip \
@@ -25,7 +27,8 @@ RUN nginx -V 2> $$ \
     && rm -rf $$ \
     && cd /nginx-dev/nginx-1.20.2 \
     && eval ./configure $nginx_configure_arguments \
-    && make
+    && make \
+    && make install
 
 FROM nginx:1.20.2
 ENV LD_LIBRARY_PATH /usr/local/lib

@@ -1,4 +1,4 @@
-FROM cjh829.azurecr.io/nginx-ip2l:1.20.2v2
+FROM cjh829.azurecr.io/nginx-ip2l:1.20.2v3
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY nginx/fastcgi.conf /etc/nginx/fastcgi.conf
 COPY nginx/fastcgi_params /etc/nginx/fastcgi_params

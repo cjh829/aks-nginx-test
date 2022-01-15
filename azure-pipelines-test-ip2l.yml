@@ -6,7 +6,7 @@ resources:
 
 variables:
   branch: '$(Build.SourceBranchName)'
-  buildnumber: '$(Build.BuildNumber)'
+  buildNumber: '$(Build.BuildNumber)'
   containerRegistry: 'myacr'
   imageRepository: 'aks-nginx-ip2l'
   imagePullSecret: 'aksnginxip2lk8ssecret'
@@ -29,7 +29,7 @@ stages:
         repository: 'aks-nginx-ip2l'
         dockerfile: 'Dockerfile'
         tags: |
-          $(branch).$(buildnumber)
+          $(branch).$(buildNumber)
     - task: KubernetesManifest@0
       displayName: Create imagePullSecret
       inputs:

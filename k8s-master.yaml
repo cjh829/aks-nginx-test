@@ -41,7 +41,15 @@ spec:
               # nginx -s quit gracefully terminate while SIGTERM triggers a quick exit <== still have error
               # command: [ "/usr/sbin/nginx","-s","quit" ]
               # sleep to gracefully terminate
-              command: ["/bin/sleep","15"]
+              # command: ["/bin/sleep","15"]
+              # sleep then graceful shutdown
+              command: [
+                  "sh", "-c",
+                # Introduce a delay to the shutdown sequence to wait for the
+                # pod eviction event to propagate. Then, gracefully shutdown
+                # nginx.
+                  "sleep 15 && /usr/sbin/nginx -s quit",
+              ]
         ports:
         - containerPort: 80
         livenessProbe:

@@ -4,16 +4,21 @@
 
 ```sh
 docker build -t aks-nginx-test:test .  //<==記得最後有個點
+docker build -t aks-nginx-test-ip2l:test -f Dockerfile-ip2l
 ```
 
 ### 起本地docker-compose服務
 ```sh
 docker-compose up -d
+docker-compose -f docker-compose-ip2l.yml up -d
 ```
 ### 服務啟動後，就可以直接改conf等配置去測，改完需要重起
 ```sh
-docker-compose down
+docker-compose down;
 docker-compose up -d
+
+docker-compose -f docker-compose-ip2l.yml down;
+docker-compose -f docker-compose-ip2l.yml up -d
 ```
 
 # 雲端測試

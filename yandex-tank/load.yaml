@@ -1,14 +1,14 @@
 phantom:
-  address: 20.81.70.253:80 # [Target's address]:[target's port]
+  address: 20.62.220.138:80 # [Target's address]:[target's port]
   uris:
     - /index.html
   load_profile:
     load_type: rps # schedule load by defining requests per second
-    schedule: const(10, 1m) # starting from 1rps growing linearly to 10rps during 10 minutes
+    schedule: const(100, 1m) # starting from 1rps growing linearly to 10rps during 10 minutes
   writelog: all
   header_http: "1.1"
   headers:
-    - "[Host: 20.81.70.253]"
+    - "[Host: 20.62.220.138]"
     - "[Connection: close]"
     - "[User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Mobile Safari/537.36]"
 console:

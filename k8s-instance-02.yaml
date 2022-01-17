@@ -35,6 +35,13 @@ spec:
       containers:
       - name: nginx-container-instance-02
         image: cjh829.azurecr.io/aks-nginx-test
+        lifecycle:
+          preStop:
+            exec:
+            # sleep then graceful shutdown
+            command: [
+                "sh", "-c", "sleep 15 && /usr/sbin/nginx -s quit",
+            ]
         ports:
         - containerPort: 80
         livenessProbe:

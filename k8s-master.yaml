@@ -38,8 +38,10 @@ spec:
         lifecycle:
           preStop:
             exec:
-              # nginx -s quit gracefully terminate while SIGTERM triggers a quick exit
-              command: [ "/usr/sbin/nginx","-s","quit" ]
+              # nginx -s quit gracefully terminate while SIGTERM triggers a quick exit <== still have error
+              # command: [ "/usr/sbin/nginx","-s","quit" ]
+              # sleep to gracefully terminate
+              command: ["/bin/sleep","10"]
         ports:
         - containerPort: 80
         livenessProbe:

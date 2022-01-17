@@ -35,6 +35,11 @@ spec:
       containers:
       - name: nginx-container-master
         image: cjh829.azurecr.io/aks-nginx-test
+        lifecycle:
+          preStop:
+            exec:
+              # nginx -s quit gracefully terminate while SIGTERM triggers a quick exit
+              command: [ "/usr/sbin/nginx","-s","quit" ]
         ports:
         - containerPort: 80
         livenessProbe:

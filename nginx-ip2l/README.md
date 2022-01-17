@@ -16,3 +16,4 @@ docker push cjh829.azurecr.io/nginx-ip2l:1.20.2v3  //<==版本號一樣要記得
 ```
 
 ### ACR權限問題可以參考根目錄的HOWTO.md
+### 如果要更新DB1.BIN，直接上傳覆蓋nginx目錄下的DB1.BIN，重新打包發布即可，nginx-ip2l目錄下的文件不用更新

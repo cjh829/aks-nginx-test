@@ -35,6 +35,11 @@ spec:
       containers:
         - name: nginx-container-ip2l
           image: cjh829.azurecr.io/aks-nginx-ip2l
+          lifecycle:
+            preStop:
+              exec:
+                # nginx -s quit gracefully terminate while SIGTERM triggers a quick exit
+                command: [ "/usr/sbin/nginx","-s","quit" ]
           ports:
             - containerPort: 80
           livenessProbe:

@@ -21,7 +21,7 @@ kind: Deployment
 metadata:
   name: nginx-deploy-master
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: nginx

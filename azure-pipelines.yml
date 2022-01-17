@@ -16,7 +16,12 @@ pool:
   environment: $(branch)
 
 steps:
-- checkout: self
+# no need to checkout, just one yaml so we download it directly.
+- checkout: none
+- task: CmdLine@2
+  displayName: 'download k8s yaml directly'
+  inputs:
+    script: 'wget https://raw.githubusercontent.com/cjh829/aks-nginx-test/master/k8s-master.yaml'
 - task: KubernetesManifest@0
   displayName: Create imagePullSecret
   inputs:

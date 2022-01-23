@@ -7,7 +7,7 @@ resources:
 - repo: self
 
 variables:
-  imagePullSecret: 'ips_nginx_ip2l_deploy_$(branch)'
+  imagePullSecret: 'ips-nginx-ip2l-deploy-$(branch)'
   k8sServConn: 'MKTFEK8s'
   acrServConn: 'MKTFEACR'
   acrUrl: 'mktfeacr.azurecr.io'

@@ -2,7 +2,7 @@
 
 ### 因為build的過程太冗長，所以預先build好，並上傳ACR
 
-直接到azue pipeline後台去import yml，再run即可，會自動build並把image push到 
+直接到azue pipeline後台去import azpl-build-nginx-ip2l-base.yml，再run即可，會自動build並把image push到 
 
 ```
 {ACR name}.azurecr.io/nginx-ip2l:base

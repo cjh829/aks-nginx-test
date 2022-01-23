@@ -1,0 +1,42 @@
+# Deploy to Azure Kubernetes Service
+
+trigger:
+- none
+
+resources:
+- repo: self
+
+variables:
+  imagePullSecret: 'ips_nginx_ip2l_deploy_$(branch)'
+  k8sServConn: 'MKTFEK8s'
+  acrServConn: 'MKTFEACR'
+  acrUrl: 'mktfeacr.azurecr.io'
+
+pool:
+  vmImage: 'ubuntu-latest'
+  environment: $(branch)
+
+steps:
+- task: KubernetesManifest@0
+  displayName: Create imagePullSecret
+  inputs:
+    action: createSecret
+    kubernetesServiceConnection: $(k8sServConn)
+    namespace: 'default'
+    secretType: 'dockerRegistry'
+    secretName: $(imagePullSecret)
+    dockerRegistryEndpoint: $(acrServConn)
+
+- task: KubernetesManifest@0
+  displayName: Deploy to Kubernetes cluster
+  inputs:
+    action: deploy
+    kubernetesServiceConnection: $(k8sServConn)
+    namespace: 'default'
+    manifests: |
+      k8s/nginx/k8s-nginx-$(branch).yaml
+    imagePullSecrets: |
+      $(imagePullSecret)
+    #note the containers should be full url(mktfeacr.azurecr.io), can not replace to 'MKTFEACR'(service connection) which will not replace the image source in k8s.yaml
+    containers: |
+      $(acrUrl)/nginx-ip2l:$(branch).$(commitHash).$(buildNumber)

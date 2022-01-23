@@ -1,17 +1,3 @@
-#shared persistentVolume for all env(master and instanceN) && all lang/mobile
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: az-file-premium
-provisioner: file.csi.azure.com # replace with "kubernetes.io/azure-file" if aks version is less than 1.21
-parameters:
-  skuName: Premium_LRS
-mountOptions:
-  - mfsymlinks
-  - actimeo=30
-allowVolumeExpansion: true
-volumeBindingMode: Immediate
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

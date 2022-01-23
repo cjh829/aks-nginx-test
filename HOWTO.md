@@ -27,9 +27,24 @@ docker-compose -f docker-compose-ip2l.yml up -d
 ---
 # ---------------------跑在雲端---------------------
 
+### 把 k8s/storage 裡面的 傳給 NOC 讓他們開存儲
+目前規劃是 一個 server branch 一個存儲，且 dev 和 sl 還有 live 都要切開
+但不分語言和mobile
 
+### build runable 的 nginx-ip2l
 
+直接到azure pipeline後台去import azpl-build-nginx-ip2l.yml，再run即可，會自動build並把image push到 
 
+```
+{ACR name}.azurecr.io/nginx-ip2l:{branch}.{commitHash}.{buildNumber}
+```
+
+### 部署nginx服務器
+nginx和storage一樣，會是一個 server branch一台(dev0~3,sl,live)，一樣不分語言和mobile
+
+直接到azure pipeline後台去import azpl-deploy-nginx-ip2l.yml，再run即可
+
+---
 ###管理歸屬問題，azure應該沒權限，仍然要透過azure-pipeline去跑，下面的指令，只能個人帳號測試用
 
 ### 先build docker image

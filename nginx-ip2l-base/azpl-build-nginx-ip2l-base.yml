@@ -19,7 +19,7 @@ stages:
       inputs:
         command: buildAndPush
         containerRegistry: 'MKTFEACR'
-        repository: 'nginx-ip2l'
-        dockerfile: 'nginx-ip2l/Dockerfile'
+        repository: 'nginx-ip2l-base'
+        dockerfile: 'nginx-ip2l-base/Dockerfile'
         tags: |
           base

@@ -1,9 +1,19 @@
 # nginx with ip2Location module
 
 ### 因為build的過程太冗長，所以預先build好，並上傳ACR
-### 如果要更新DB1.BIN，直接上傳覆蓋nginx目錄下的DB1.BIN，重新打包發布即可
 
-#管理歸屬問題，azure應該沒權限，仍然要透過azure-pipeline去跑，下面的指令，只能個人帳號測試用
+直接到azue pipeline後台去import yml，再run即可，會自動build並把image push到 
+
+```
+{ACR name}.azurecr.io/nginx-ip2l:base
+```
+
+在ACR建立後，只要跑一次就好，後面應該也不用再動，除非ACR重建，才要重新再推
+
+
+---
+
+###管理歸屬問題，azure應該沒權限，仍然要透過azure-pipeline去跑，下面的指令，只能個人帳號測試用
 
 ### 先build docker image
 

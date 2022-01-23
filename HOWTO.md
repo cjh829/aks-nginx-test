@@ -1,4 +1,7 @@
-# 本地測試
+# ---------------------本地測試---------------------
+
+### 使用ip2location前，要先build base image，詳情參考nginx-ip2l目錄(也可以改dockerfile，直接用本地docker源)
+
 
 ### 先build docker image
 
@@ -21,7 +24,13 @@ docker-compose -f docker-compose-ip2l.yml down;
 docker-compose -f docker-compose-ip2l.yml up -d
 ```
 
-# 雲端測試
+---
+# ---------------------跑在雲端---------------------
+
+
+
+
+###管理歸屬問題，azure應該沒權限，仍然要透過azure-pipeline去跑，下面的指令，只能個人帳號測試用
 
 ### 先build docker image
 

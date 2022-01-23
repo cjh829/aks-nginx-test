@@ -50,3 +50,10 @@ spec:
             port: 80
           initialDelaySeconds: 30
           timeoutSeconds: 1
+        volumeMounts:
+          - mountPath: "/usr/share/nginx/html"
+            name: pvc
+          volumes:
+            - name: pvc
+              persistentVolumeClaim:
+                claimName: az-file-premium-pvc-f1p5fedev-master

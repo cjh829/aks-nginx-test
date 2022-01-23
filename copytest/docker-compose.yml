@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nginx:
+    image: copytest:v2
+    volumes:
+      - ./srcdata:/srcData
+    command: ["rsync", "-avh", "/newData/", "/srcData/"]
+    restart: "no"
+    container_name: copytest

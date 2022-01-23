@@ -1,0 +1,25 @@
+trigger:
+  - none
+
+resources:
+- repo: self
+
+stages:
+- stage: BuildAndPush
+  displayName: Build docker image and push to ACR
+  jobs:
+  - job: BuildAndPush
+    displayName: Build docker image and push to ACR
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        containerRegistry: 'MKTFEACR'
+        repository: 'nginx-ip2l'
+        dockerfile: 'nginx-ip2l/Dockerfile'
+        tags: |
+          base

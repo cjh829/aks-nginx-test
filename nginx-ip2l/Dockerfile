@@ -33,4 +33,4 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 COPY --from=builder /usr/local/lib /usr/local/lib
 COPY --from=builder /nginx-dev/nginx-1.20.2/objs/nginx /usr/sbin/nginx
 RUN mkdir /etc/ip2location
-COPY DB1.BIN /etc/ip2location/DB1.BIN
+#COPY DB1.BIN /etc/ip2location/DB1.BIN  #just a base build, later copy in runable build

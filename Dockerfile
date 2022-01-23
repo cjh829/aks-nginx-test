@@ -1,3 +1,4 @@
+#用語言跳轉，這已經棄用，現在改用ip2location
 FROM nginx:1.20-alpine
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY nginx/fastcgi.conf /etc/nginx/fastcgi.conf

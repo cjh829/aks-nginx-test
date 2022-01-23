@@ -26,7 +26,7 @@ docker-compose -f docker-compose-ip2l.yml up -d
 ### 先build docker image
 
 ```sh
-docker build -t cjh829.azurecr.io/aks-nginx-test:v22010901 .  //<==記得最後有個點，版本號記得改
+docker build -t mktfeacr.azurecr.io/nginx-ip2l:v1 -f Dockerfile-ip2l  //<==版本號記得改
 ```
 
 ### 把 docker image 上傳到 azure 的 CR 庫 (container registry)

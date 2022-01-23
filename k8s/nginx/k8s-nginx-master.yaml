@@ -53,7 +53,7 @@ spec:
         volumeMounts:
           - mountPath: "/usr/share/nginx/html"
             name: pvc
-          volumes:
-            - name: pvc
-              persistentVolumeClaim:
-                claimName: az-file-premium-pvc-f1dev-master
+      volumes:
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: az-file-premium-pvc-f1dev-master

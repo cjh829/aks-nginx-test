@@ -4,6 +4,10 @@ trigger:
 resources:
 - repo: self
 
+variables:
+  branch: '$(Build.SourceBranchName)'
+  buildNumber: '$(Build.BuildNumber)'
+
 stages:
 - stage: BuildAndPush
   displayName: Build docker image and push to ACR

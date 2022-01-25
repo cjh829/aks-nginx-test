@@ -5,7 +5,7 @@
 ### 修改並執行ingress_install.sh即可
 
 ```sh
-cd ingress;
+cd k8s/ingress;
 ./ingress_install.sh
 ```
 
@@ -35,14 +35,23 @@ helm template nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-ngin
 ---
 
 # 自建tls key
-##### 測試用的key和crt文件，按照教學打就可以，這裡不列
+##### 測試用的key和crt文件(和教學不同，這裡做的是wildcard domain)
+
+```sh
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -out aks-ingress-tls-f1demo.crt \
+    -keyout aks-ingress-tls-f1demo.key \
+    -subj "/CN=*.f1demo.com/O=aks-ingress-tls"
+```
+
+
 ##### 導入用下面的命令(namespace一樣要換成default)
 
 ```sh
 kubectl create secret tls aks-ingress-tls \
     --namespace default \
-    --key aks-ingress-tls.key \
-    --cert aks-ingress-tls.crt
+    --key aks-ingress-tls-f1demo.key \
+    --cert aks-ingress-tls-f1demo.crt
 ```
 ---
 

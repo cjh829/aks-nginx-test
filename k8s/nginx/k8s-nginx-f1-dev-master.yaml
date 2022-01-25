@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service-master
+  name: nginx-service-f1-dev-master
   labels:
     app: nginx
-    env: master
+    prod: f1
+    env: dev
+    branch: master
 spec:
   type: ClusterIP
   ports:
@@ -13,26 +15,32 @@ spec:
     name: http
   selector:
     app: nginx
-    env: master
+    prod: f1
+    env: dev
+    branch: master
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deploy-master
+  name: nginx-deploy-f1-dev-master
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: nginx
-      env: master
+      prod: f1
+      env: dev
+      branch: master
   template:
     metadata:
       labels:
         app: nginx
-        env: master
+        prod: f1
+        env: dev
+        branch: master
     spec:
       containers:
-      - name: nginx-container-master
+      - name: nginx-container-f1-dev-master
         image: mktfeacr.azurecr.io/nginx-ip2l
         lifecycle:
           preStop:
@@ -55,4 +63,4 @@ spec:
       volumes:
         - name: pvc
           persistentVolumeClaim:
-            claimName: az-file-premium-pvc-f1dev-master
+            claimName: az-file-premium-pvc-f1-dev-master

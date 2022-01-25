@@ -1,0 +1,62 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-master
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/default-backend: "nginx-service-f1-dev-master"
+spec:
+  tls:
+  - hosts:
+    - *.f1demo.com
+    secretName: aks-ingress-tls-f1demo
+  # predefined for following migrations
+  #- hosts:
+  #  - *.j1demo.com
+  #  secretName: aks-ingress-tls-j1demo
+  #- hosts:
+  #  - *.t1demo.com
+  #  secretName: aks-ingress-tls-t1demo
+  rules:
+  - host: stag.f1demo.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service-f1-dev-master
+            port:
+              number: 80
+  #- host: stag1.f1demo.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: nginx-service-f1-dev-instance-01
+  #          port:
+  #            number: 80
+  #- host: stag2.f1demo.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: nginx-service-f1-dev-instance-02
+  #          port:
+  #            number: 80
+  #- host: stag3.f1demo.com
+  #  http:
+  #    paths:
+  #    - path: /
+  #      pathType: Prefix
+  #      backend:
+  #        service:
+  #          name: nginx-service-f1-dev-instance-03
+  #          port:
+  #            number: 80

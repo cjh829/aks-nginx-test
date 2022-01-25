@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: az-file-premium-pvc-f1dev-master
+  name: az-file-premium-pvc-f1-dev-master
 spec:
   accessModes:
     - ReadWriteMany
@@ -13,7 +13,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: az-file-premium-pvc-f1dev-instacne-01
+  name: az-file-premium-pvc-f1-dev-instacne-01
 spec:
   accessModes:
     - ReadWriteMany
@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: az-file-premium-pvc-f1dev-instacne-02
+  name: az-file-premium-pvc-f1-dev-instacne-02
 spec:
   accessModes:
     - ReadWriteMany
@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: az-file-premium-pvc-f1dev-instacne-03
+  name: az-file-premium-pvc-f1-dev-instacne-03
 spec:
   accessModes:
     - ReadWriteMany

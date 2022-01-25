@@ -48,7 +48,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ##### 導入用下面的命令(namespace一樣要換成default)
 
 ```sh
-kubectl create secret tls aks-ingress-tls \
+kubectl create secret tls aks-ingress-tls-f1demo \
     --namespace default \
     --key aks-ingress-tls-f1demo.key \
     --cert aks-ingress-tls-f1demo.crt

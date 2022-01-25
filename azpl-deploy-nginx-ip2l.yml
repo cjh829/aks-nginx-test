@@ -7,7 +7,7 @@ resources:
 - repo: self
 
 variables:
-  imagePullSecret: 'ips-nginx-ip2l-deploy-$(branch)'
+  imagePullSecret: 'ips-nginx-ip2l-deploy-dev-$(branch)'
   k8sServConn: 'MKTFEK8s'
   acrServConn: 'MKTFEACR'
   acrUrl: 'mktfeacr.azurecr.io'
@@ -34,7 +34,7 @@ steps:
     kubernetesServiceConnection: $(k8sServConn)
     namespace: 'default'
     manifests: |
-      k8s/nginx/k8s-nginx-$(branch).yaml
+      k8s/nginx/k8s-nginx-dev-$(branch).yaml
     imagePullSecrets: |
       $(imagePullSecret)
     #note the containers should be full url(mktfeacr.azurecr.io), can not replace to 'MKTFEACR'(service connection) which will not replace the image source in k8s.yaml

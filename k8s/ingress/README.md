@@ -58,3 +58,9 @@ kubectl create secret tls aks-ingress-tls-f1demo \
 # 發布ingress
 
 ##### kubectl apply yaml就可以，沒啥特別(一樣注意要改namespace)
+
+# 測試ingress
+
+```sh
+curl -v -k --resolve stag.f1demo.com:443:{EXTERNAL_IP} https://stag.f1demo.com
+```

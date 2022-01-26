@@ -10,7 +10,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - *.f1demo.com
+    - stag.f1demo.com
     secretName: aks-ingress-tls-f1demo
   # predefined for following migrations
   #- hosts:
